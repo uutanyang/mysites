@@ -1,0 +1,63 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+
+before:
+  hooks:
+    - chmod +x ./ci/script.sh
+    - ./ci/script.sh
+    - sed -i 's@ORIGINAL_VERSION=.*@ORIGINAL_VERSION=v{{ .Version }}@g' dzctl
+    - go mod tidy
+
+builds:
+  - main: ./cmd/main.go
+    binary: mysites
+    flags:
+      - -tags=xpack
+      - -trimpath
+    ldflags:
+      - -w -s
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarm:
+      - 7
+    goarch:
+      - amd64
+      - arm64
+      - arm
+      - ppc64le
+      - s390x
+
+archives:
+  - format: tar.gz
+    name_template: "mysites-v{{ .Version }}-{{ .Os }}-{{ .Arch }}{{- if .Arm }}v{{ .Arm }}{{ end }}"
+    wrap_in_directory: true
+    files:
+      - dzctl
+      - mysites.service
+      - install.sh
+      - GeoIP.mmdb
+      - lang/*
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        format: zip
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
