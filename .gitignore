@@ -5,6 +5,7 @@
 *.so
 *.dylib
 build/mysites
+web
 
 # Mac
 .DS_Store
