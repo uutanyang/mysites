@@ -30,19 +30,10 @@ build/mysites
 
 # Dependency directories
 /pkg/
-backend/__debug_bin
-cmd/server/__debug_bin
-cmd/server/web/assets
-cmd/server/web/monacoeditorwork
-cmd/server/web/index.html
-frontend/auto-imports.d.ts
-frontend/components.d.ts
-frontend/src/xpack
-backend/xpack
 *_xpack.go
 .history/
 dist/
-1pctl
-1panel.service
+dzctl
+mysites.service
 install.sh
 quick_start.sh
