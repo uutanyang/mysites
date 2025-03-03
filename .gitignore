@@ -5,7 +5,23 @@
 *.so
 *.dylib
 build/mysites
-web
+web/src
+web/scripts
+web/vite
+web/plop-templates
+web/themes
+web/components.json
+web/eslint.config.js
+web/package.json
+web/plopfile.js
+web/pnpm-lock.yaml
+web/postcss.config.js
+web/stylelint.config.js
+web/tsconfig.app.json
+web/tsconfig.json
+web/tsconfig.node.json
+web/uno.config.ts
+web/vite.config.ts
 
 # Mac
 .DS_Store
